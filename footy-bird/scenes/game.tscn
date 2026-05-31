@@ -1,0 +1,67 @@
+[gd_scene format=3 uid="uid://dcy5gngl5vkpi"]
+
+[ext_resource type="Script" uid="uid://b1g2b4fhbonl5" path="res://scripts/game.gd" id="1_lnu2h"]
+[ext_resource type="PackedScene" uid="uid://blfygsrbv5s0p" path="res://scenes/background.tscn" id="2_yqjtg"]
+[ext_resource type="PackedScene" uid="uid://cfpg0b6kdm34h" path="res://scenes/football.tscn" id="3_lnu2h"]
+[ext_resource type="FontFile" uid="uid://bm0bbx5vrij58" path="res://assets/PressStart2P-Regular.ttf" id="4_lbhrr"]
+[ext_resource type="Script" uid="uid://dn75mlqy02l4s" path="res://scripts/check_game_over.gd" id="5_iywne"]
+[ext_resource type="AudioStream" uid="uid://d1cby5k4a72or" path="res://assets/audios/jumpSound.wav" id="6_p57ef"]
+[ext_resource type="AudioStream" uid="uid://dnw6cs1bqfftq" path="res://assets/audios/backgroundWind.wav" id="7_u5sy4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lbhrr"]
+size = Vector2(2683, 52)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iywne"]
+size = Vector2(2670.5, 87)
+
+[node name="Game" type="Node2D" unique_id=738037759]
+script = ExtResource("1_lnu2h")
+
+[node name="Background" parent="." unique_id=933705168 instance=ExtResource("2_yqjtg")]
+
+[node name="Background2" parent="." unique_id=218273715 instance=ExtResource("2_yqjtg")]
+position = Vector2(1342, 0)
+
+[node name="Football" parent="." unique_id=116135512 instance=ExtResource("3_lnu2h")]
+position = Vector2(552, 334)
+scale = Vector2(0.15, 0.15)
+
+[node name="score" type="CanvasLayer" parent="." unique_id=676669596]
+
+[node name="scoreLabel" type="Label" parent="score" unique_id=1003022607]
+offset_left = 569.0
+offset_top = 71.0
+offset_right = 665.0
+offset_bottom = 157.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("4_lbhrr")
+theme_override_font_sizes/font_size = 32
+text = "0"
+
+[node name="Roof" type="StaticBody2D" parent="." unique_id=1594434228]
+position = Vector2(1247.5, -16)
+
+[node name="Roof_body" type="CollisionShape2D" parent="Roof" unique_id=627610298]
+shape = SubResource("RectangleShape2D_lbhrr")
+
+[node name="Floor" type="Area2D" parent="." unique_id=1075700666]
+script = ExtResource("5_iywne")
+
+[node name="Floor_body" type="CollisionShape2D" parent="Floor" unique_id=247046693]
+position = Vector2(1247.75, 688.5)
+shape = SubResource("RectangleShape2D_iywne")
+
+[node name="Audio" type="Node" parent="." unique_id=165010647]
+
+[node name="JumpSound" type="AudioStreamPlayer" parent="Audio" unique_id=687327962]
+stream = ExtResource("6_p57ef")
+autoplay = true
+
+[node name="BackgroundSound" type="AudioStreamPlayer" parent="Audio" unique_id=884088119]
+stream = ExtResource("7_u5sy4")
+volume_db = -10.0
+autoplay = true
+
+[connection signal="body_entered" from="Floor" to="." method="_on_floor_body_entered"]
+[connection signal="body_entered" from="Floor" to="Floor" method="_on_body_entered"]
