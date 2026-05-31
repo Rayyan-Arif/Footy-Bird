@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://dm7gx4j1baovm"]
+
+[ext_resource type="PackedScene" uid="uid://c3v4rwcg6qvdb" path="res://scenes/up_pipe.tscn" id="1_m2bs7"]
+[ext_resource type="PackedScene" uid="uid://bxkefr4wqw4r1" path="res://scenes/down_pipe.tscn" id="2_e3hex"]
+[ext_resource type="Script" uid="uid://dr68uqq7tv2a0" path="res://scripts/update_score.gd" id="3_e3hex"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_000v6"]
+size = Vector2(165.5, 357)
+
+[node name="pipe_pair" type="Node2D" unique_id=1342497395]
+
+[node name="UpPipe" parent="." unique_id=1164897821 instance=ExtResource("1_m2bs7")]
+position = Vector2(3, -526)
+scale = Vector2(1, 2)
+
+[node name="DownPipe" parent="." unique_id=1323390514 instance=ExtResource("2_e3hex")]
+position = Vector2(3, 1046)
+scale = Vector2(1, 2)
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1908798252]
+position = Vector2(489, 398)
+script = ExtResource("3_e3hex")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1021942722]
+position = Vector2(-487.75, -138.5)
+shape = SubResource("RectangleShape2D_000v6")
+
+[connection signal="body_exited" from="Area2D" to="Area2D" method="_on_body_exited"]

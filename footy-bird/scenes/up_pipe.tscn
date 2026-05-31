@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://c3v4rwcg6qvdb"]
+
+[ext_resource type="Texture2D" uid="uid://cgucy0e2vxs8r" path="res://assets/uppipe.png" id="1_1y11c"]
+[ext_resource type="Script" uid="uid://dn75mlqy02l4s" path="res://scripts/check_game_over.gd" id="2_n1j35"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n1j35"]
+size = Vector2(140, 564)
+
+[node name="UpPipe" type="StaticBody2D" unique_id=1164897821]
+
+[node name="pipe_image" type="Sprite2D" parent="." unique_id=950306663]
+texture = ExtResource("1_1y11c")
+
+[node name="up_area" type="Area2D" parent="." unique_id=68283912]
+position = Vector2(-1, 19)
+script = ExtResource("2_n1j35")
+
+[node name="pipe_body" type="CollisionShape2D" parent="up_area" unique_id=571191018]
+shape = SubResource("RectangleShape2D_n1j35")
+
+[connection signal="body_entered" from="up_area" to="up_area" method="_on_body_entered"]
